@@ -871,7 +871,7 @@ void DrawIconTitleWindow(
 				w_stipple + ICON_TITLE_TO_STICK_EXTRA_GAP;
 		}
 		/* resize the icon name window */
-		w_title_w = w_title + 2 * x_title_min;
+		/* w_title_w = w_title + 2 * x_title_min; */ /* commenting this out disables icon title from expanding. */
 		if (w_title_w <= fw->icon_g.picture_w_g.width)
 		{
 			/* the expanded title is smaller, so do not
@@ -880,7 +880,10 @@ void DrawIconTitleWindow(
 			w_stipple = 0;
 			use_unexpanded_size = 1;
 		}
-		else
+		else /* TODO: Disable this code, set use_unexpanded_size = 1
+                Maybe this will prevent icon titles from expanding.
+                See also a few lines up where the line setting w_title_w
+                is commented out.*/
 		{
 			x_title_w = fw->icon_g.picture_w_g.x -
 				(w_title_w - fw->icon_g.picture_w_g.width) / 2;
@@ -1990,8 +1993,7 @@ void AutoPlaceIcon(
 	    {
 	      rectangle g;
 
-	      if ((IS_ICONIFIED(test_fw)) &&
-		 (!IS_TRANSIENT(test_fw) ||
+	      if ((!IS_TRANSIENT(test_fw) ||
 		  !IS_ICONIFIED_BY_PARENT(test_fw)) &&
 		 (FW_W_ICON_TITLE(test_fw)||FW_W_ICON_PIXMAP(test_fw)) &&
 		 (test_fw != t)) {
